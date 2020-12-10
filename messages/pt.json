@@ -1,4 +1,7 @@
 {
-  "editor.countdown.title": "Contagem regressiva",
-  "editor.countdown.description": "Componente de contagem regressiva"
+  "admin/editor.free-shipping.title": "Free Shipping Component",
+  "admin/editor.free-shipping.description": "Free Shipping Component",
+  "admin/editor.free-shipping.infoLabel.labelInitial.title": "Valor actual:",
+  "admin/editor.free-shipping.infoLabel.labelBetween.title": "¡Faltan ",
+  "admin/editor.free-shipping.infoLabel.labelFinal.title": "para que su envío sea totalmente gratis!"
 }

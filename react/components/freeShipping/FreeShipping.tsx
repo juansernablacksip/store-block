@@ -36,9 +36,9 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({ valueOfF
     const handles = useCssHandles(CSS_HANDLES)
 
     return (
-        <div className = {`mw-100 pa2 ${handles.globalFreeShippingContainer}`}>
+        <div className = {`w-90 pa3 ${handles.globalFreeShippingContainer}`}>
             {show.informativeFreeShippingText &&
-                <p className = {`t-code mw9 ${handles.informativeFreeShippingText}`}> 
+                <p className = {`t-code mw9 mw-100 ${handles.informativeFreeShippingText}`}> 
                     {show.labelInitial &&
                         infoLabel.labelInitial 
                     }
@@ -59,13 +59,13 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({ valueOfF
                     &nbsp;
                 </p>
             }
-            {show.percentageFreeShipping &&
-                <Progress type = "line" percent = {percentageForFreeShipping}  className = {handles.freeShippingProgressBar}/>
-            }
             {show.rangeFreeShipping &&
-                <div className = {`flex flex-wrap items-center justify-between mw-100 pa2 ${handles.rangeFreeShippingContainer}`}>
-                    <p className = {`t-code mw9 w-80 ${handles.initialRangeFreeShippingText}`}> <FormattedCurrency value = {0} /> </p>
-                    <p className = {`t-code mw9 w-20 ${handles.endRangeFreeShippingText}`}> <FormattedCurrency value = {valueOfFreeShipping} /> </p>
+                <div className = {`flex flex-wrap items-center justify-between pa2 ${handles.rangeFreeShippingContainer}`}>
+                    {show.percentageFreeShipping &&
+                        <Progress type = "line" percent = {percentageForFreeShipping}  className = {`mw-100 ${handles.freeShippingProgressBar}`}/>
+                    }
+                    <p className = {`t-code mw9 self-start ${handles.initialRangeFreeShippingText}`}> <FormattedCurrency value = {0} /> </p>
+                    <p className = {`t-code mw9 self-end ${handles.endRangeFreeShippingText}`}> <FormattedCurrency value = {valueOfFreeShipping} /> </p>
                 </div>
             }
         </div>

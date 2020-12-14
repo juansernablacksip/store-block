@@ -2,7 +2,7 @@
 
 The `free-shipping` is a block responsible for **displaying the missing amount, to access the free shipping promotion**.
 
-![image](https://user-images.githubusercontent.com/17678382/101309181-c081c500-3819-11eb-8927-c1db3dab5f96.PNG)
+![image](https://user-images.githubusercontent.com/74076308/101827422-4fcef700-3afe-11eb-8911-a5d344f90fc8.PNG)
 
 ## Configuration
 
@@ -19,6 +19,26 @@ The `free-shipping` is a block responsible for **displaying the missing amount, 
 2. Add the `free-shipping` block to any block below `store.custom#free-shipping` (page custom template). For example:
 
 ```json
+"free-shipping": {
+  "props": {
+    "valueOfFreeShipping": 100,
+    "infoLabel": {
+      "labelInitial": "Test init:",
+      "labelBetween": "¡Test Middle ",
+      "labelFinal": "Test end!"
+      },
+    "show": {
+      "informativeFreeShippingText": true,
+      "percentageFreeShipping":true,
+      "rangeFreeShipping": true,
+      "labelInitial": true,
+      "subTotal": true,
+      "labelBetween": true,
+      "missingForFreeShipping": true,
+      "labelFinal": true
+    }
+  }
+},
 {
   "store.custom#free-shipping": {
     "blocks": [
@@ -35,7 +55,9 @@ The `free-shipping` is a block responsible for **displaying the missing amount, 
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | ---| 
-| `valueOfFreeShipping` | `Number` | Show product SKU | `1` |
+| `valueOfFreeShipping` | `Number` | Show value of free shipping | `1` |
+| `infoLabel` | `String` | Show info of free shipping | `Valor actual: ¡Faltan ________ para que su envío sea totalmente gratis!` |
+| `show` | `Boolean` | Show free shipping | `true` |
 
 
 ## Customization

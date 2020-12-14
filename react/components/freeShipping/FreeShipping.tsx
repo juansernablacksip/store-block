@@ -19,7 +19,7 @@ const CSS_HANDLES = [
 ] as const
 
 
-const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({ valueOfFreeShipping, infoLabel }) => {
+const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({ valueOfFreeShipping, infoLabel, show }) => {
 
     // Get subTotal of my cart that is equal to the sum of the prices of the items in the cart
     const { orderForm: { totalizers } } = useOrderForm()
@@ -36,16 +36,38 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({ valueOfF
     const handles = useCssHandles(CSS_HANDLES)
 
     return (
-        <div style = {{ display: 'flex', flexWrap:'wrap', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginLeft: '1rem'}}  className = {handles.globalFreeShippingContainer}>
-            <p className = {`t-code mw9 ${handles.informativeFreeShippingText}`}> 
-                {infoLabel.labelInitial} <FormattedCurrency value = {subTotal} /> &nbsp;
-                {infoLabel.labelBetween} <FormattedCurrency value = {missingForFreeShipping} /> {infoLabel.labelFinal} &nbsp;
-            </p>
-            <Progress type = "line" percent = {percentageForFreeShipping}  className = {handles.freeShippingProgressBar}/>
-            <div style = {{ display: 'flex', flexWrap:'wrap', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginLeft: '0.1rem'}}  className = {handles.rangeFreeShippingContainer}>
-                <p className = {`t-code mw9 ${handles.initialRangeFreeShippingText}`}> <FormattedCurrency value = {0} /> </p>
-                <p className = {`t-code mw9 ${handles.endRangeFreeShippingText}`}> <FormattedCurrency value = {valueOfFreeShipping} /> </p>
-            </div>
+        <div className = {`mw-100 pa2 ${handles.globalFreeShippingContainer}`}>
+            {show.informativeFreeShippingText &&
+                <p className = {`t-code mw9 ${handles.informativeFreeShippingText}`}> 
+                    {show.labelInitial &&
+                        infoLabel.labelInitial 
+                    }
+                    {show.subTotal &&
+                        <FormattedCurrency value = {subTotal} /> 
+                    }
+                    &nbsp;
+                    {show.labelBetween &&
+                        infoLabel.labelBetween
+                    } 
+                    {show.missingForFreeShipping &&
+                        <FormattedCurrency value = {missingForFreeShipping} /> 
+                    }
+                    &nbsp;
+                    {show.labelFinal && 
+                        infoLabel.labelFinal
+                    }
+                    &nbsp;
+                </p>
+            }
+            {show.percentageFreeShipping &&
+                <Progress type = "line" percent = {percentageForFreeShipping}  className = {handles.freeShippingProgressBar}/>
+            }
+            {show.rangeFreeShipping &&
+                <div className = {`flex flex-wrap items-center justify-between mw-100 pa2 ${handles.rangeFreeShippingContainer}`}>
+                    <p className = {`t-code mw9 w-80 ${handles.initialRangeFreeShippingText}`}> <FormattedCurrency value = {0} /> </p>
+                    <p className = {`t-code mw9 w-20 ${handles.endRangeFreeShippingText}`}> <FormattedCurrency value = {valueOfFreeShipping} /> </p>
+                </div>
+            }
         </div>
     )
 }
@@ -57,17 +79,27 @@ FreeShipping.defaultProps = {
         labelInitial: "Valor actual:",
         labelBetween: "¡Faltan ",
         labelFinal: "para que su envío sea totalmente gratis!"
+    },
+    show: {
+        informativeFreeShippingText: true,
+        percentageFreeShipping: true,
+        rangeFreeShipping: true,
+        labelInitial: true,
+        subTotal: true,
+        labelBetween: true,
+        missingForFreeShipping: true,
+        labelFinal: true
     }
 }
 
 
 FreeShipping.schema = {
-  title: 'admin/editor.free-shipping.title',
-  description: 'admin/editor.free-shipping.description',
+  title: 'editor.countdown.title',
+  description: 'editor.countdown.description',
   type: 'object',
   properties: {
     valueOfFreeShipping: {
-        title: "admin/editor.free-shipping.valueOfFreeShipping.title",
+        title: "editor.countdown.valueOfFreeShipping.title",
         type: "number"
     },
     infoLabel: {
@@ -75,15 +107,15 @@ FreeShipping.schema = {
         type: "object",
         properties: {
             labelInitial: {
-                title: "admin/editor.free-shipping.infoLabel.labelInitial.title",
+                title: "editor.countdown.infoLabel.labelInitial.title",
                 type: "string"
             },
             labelBetween: {
-                title: "admin/editor.free-shipping.infoLabel.labelBetween.title",
+                title: "editor.countdown.infoLabel.labelBetween.title",
                 type: "string"
             },
             labelFinal: {
-                title: "admin/editor.free-shipping.infoLabel.labelFinal.title",
+                title: "editor.countdown.infoLabel.labelFinal.title",
                 type: "string"
             }
         }

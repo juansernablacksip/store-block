@@ -1,6 +1,7 @@
 {
   "editor.countdown.title": "Free Shipping Component",
   "editor.countdown.description": "Free Shipping Component",
+  "editor.countdown.valueOfFreeShipping.title": "999",
   "editor.countdown.infoLabel.labelInitial.title": "Valor actual:",
   "editor.countdown.infoLabel.labelBetween.title": "¡Faltan ",
   "editor.countdown.infoLabel.labelFinal.title": "para que su envío sea totalmente gratis!"

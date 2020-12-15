@@ -10,12 +10,12 @@ import { FreeShippingProps } from '../../typings/free-shipping'
  * Modifiers of each of the component classes allow you to style each of the blocks
  */
 const CSS_HANDLES = [
-    "globalFreeShippingContainer",
-    "informativeFreeShippingText",
-    "freeShippingProgressBar",
-    "rangeFreeShippingContainer",
-    "initialRangeFreeShippingText",
-    "endRangeFreeShippingText"
+    "fs_globalFreeShippingContainer",
+    "fs_informativeFreeShippingText",
+    "fs_freeShippingProgressBar",
+    "fs_rangeFreeShippingContainer",
+    "fs_initialRangeFreeShippingText",
+    "fs_endRangeFreeShippingText"
 ] as const
 
 
@@ -36,9 +36,9 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({ valueOfF
     const handles = useCssHandles(CSS_HANDLES)
 
     return (
-        <div className = {`w-90 pa3 ${handles.globalFreeShippingContainer}`}>
+        <div className = {`w-90 pa3 ${handles.fs_globalFreeShippingContainer}`}>
             {show.informativeFreeShippingText &&
-                <p className = {`t-code mw9 mw-100 ${handles.informativeFreeShippingText}`}> 
+                <p className = {`t-body mw9 mw-100 ${handles.fs_informativeFreeShippingText}`}> 
                     {show.labelInitial &&
                         infoLabel.labelInitial 
                     }
@@ -60,12 +60,12 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({ valueOfF
                 </p>
             }
             {show.rangeFreeShipping &&
-                <div className = {`flex flex-wrap items-center justify-between pa2 ${handles.rangeFreeShippingContainer}`}>
+                <div className = {`flex flex-wrap items-center justify-between pa2 ${handles.fs_rangeFreeShippingContainer}`}>
                     {show.percentageFreeShipping &&
-                        <Progress type = "line" percent = {percentageForFreeShipping}  className = {`mw-100 ${handles.freeShippingProgressBar}`}/>
+                        <Progress type = "line" percent = {percentageForFreeShipping}  className = {`mw-100 ${handles.fs_freeShippingProgressBar}`}/>
                     }
-                    <p className = {`t-code mw9 self-start ${handles.initialRangeFreeShippingText}`}> <FormattedCurrency value = {0} /> </p>
-                    <p className = {`t-code mw9 self-end ${handles.endRangeFreeShippingText}`}> <FormattedCurrency value = {valueOfFreeShipping} /> </p>
+                    <p className = {`t-body mw9 self-start ${handles.fs_initialRangeFreeShippingText}`}> <FormattedCurrency value = {0} /> </p>
+                    <p className = {`t-body mw9 self-end ${handles.fs_endRangeFreeShippingText}`}> <FormattedCurrency value = {valueOfFreeShipping} /> </p>
                 </div>
             }
         </div>

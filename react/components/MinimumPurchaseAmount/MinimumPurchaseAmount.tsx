@@ -10,13 +10,9 @@ import { useCheckoutURL } from 'vtex.checkout-resources/Utils'
  * Modifiers of each of the component classes allow you to style each of the blocks
  */
 const CSS_HANDLES = [
-  'fs_globalFreeShippingContainer',
-  'fs_informativeFreeShippingText',
-  'fs_freeShippingProgressBar',
-  'fs_rangeFreeShippingContainer',
-  'fs_initialRangeFreeShippingText',
-  'fs_endRangeFreeShippingText',
-  'mpa_MinimumPurchaseAmountContainer',
+  'mpa_globalMinimumPurchaseAmountContainer',
+  'mpa_infoLabelMinimumPurchaseAmountContainer',
+  'mpa_informativeMinimumPurchaseAmountText',
   'mpa_MinimumPurchaseAmountButton',
 ] as const
 
@@ -50,17 +46,19 @@ const MinimumPurchaseAmount: StorefrontFunctionComponent<
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
-    <div className={`pb0 ${handles.fs_globalFreeShippingContainer2}`}>
-      <div className={`w-90 pa3 ${handles.fs_globalFreeShippingContainer}`}>
-        {show.informativeFreeShippingText && (
+    <div className={`pb0 ${handles.mpa_globalMinimumPurchaseAmountContainer}`}>
+      <div
+        className={`w-90 pa3 ${handles.mpa_infoLabelMinimumPurchaseAmountContainer}`}
+      >
+        {show.informativeMinimumPurchaseAmountText && (
           <p
-            className={`t-body mw9 mw-100 ${handles.fs_informativeFreeShippingText}`}
+            className={`t-body mw9 mw-100 ${handles.mpa_informativeMinimumPurchaseAmountText}`}
           >
             {show.labelInitial && infoLabel.labelInitial}
             {show.subTotal && <FormattedCurrency value={subTotal} />}
             &nbsp;
             {show.labelBetween && infoLabel.labelBetween}
-            {show.missingForFreeShipping && (
+            {show.missingForMinimumPurchaseAmount && (
               <FormattedCurrency value={missingForFreeShipping} />
             )}
             &nbsp;
@@ -93,14 +91,14 @@ MinimumPurchaseAmount.defaultProps = {
   infoLabel: {
     labelInitial: 'Valor actual:',
     labelBetween: '¡Faltan ',
-    labelFinal: 'para que su envío sea totalmente gratis!',
+    labelFinal: 'para que pueda cerrar su pedido!',
   },
   show: {
-    informativeFreeShippingText: true,
+    informativeMinimumPurchaseAmountText: true,
     labelInitial: true,
     subTotal: true,
     labelBetween: true,
-    missingForFreeShipping: true,
+    missingForMinimumPurchaseAmount: true,
     labelFinal: true,
     checkoutButton: true,
     children: true,

@@ -12,11 +12,11 @@ export interface InfoProps {
 }
 
 export interface ShowProps {
-  informativeFreeShippingText?: boolean
+  informativeMinimumPurchaseAmountText?: boolean
   labelInitial?: boolean
   subTotal?: boolean
   labelBetween?: boolean
-  missingForFreeShipping?: boolean
+  missingForMinimumPurchaseAmount?: boolean
   labelFinal?: boolean
   checkoutButton?: boolean
   children?: boolean

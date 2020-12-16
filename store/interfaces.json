@@ -1,5 +1,7 @@
 {
   "countdown": {
-    "component": "FreeShipping"
+    "component": "MinimumPurchaseAmount",
+    "composition": "children",
+    "allowed": "*"
   }
 }

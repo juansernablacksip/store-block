@@ -3,5 +3,6 @@
   "admin/editor.free-shipping.description": "Free Shipping Component",
   "admin/editor.free-shipping.infoLabel.labelInitial.title": "Valor actual:",
   "admin/editor.free-shipping.infoLabel.labelBetween.title": "¡Faltan ",
-  "admin/editor.free-shipping.infoLabel.labelFinal.title": "para que su envío sea totalmente gratis!"
+  "admin/editor.free-shipping.infoLabel.labelFinal.title": "para que su envío sea totalmente gratis!",
+  "editor.countdown.textCheckoutButton.title": "Cerrar pedido"
 }

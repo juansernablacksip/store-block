@@ -2,7 +2,7 @@
 
 The `minimum-purchase-amount` is a block responsible for **displaying the missing amount, to be able to buy in the online store**.
 
-![image]()
+![image](https://user-images.githubusercontent.com/74076308/102406641-e137e080-3fb8-11eb-8e61-587badd8d9ab.PNG)
 
 ## Configuration
 

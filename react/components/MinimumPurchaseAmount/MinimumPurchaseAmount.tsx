@@ -31,7 +31,16 @@ const MinimumPurchaseAmount: StorefrontFunctionComponent<
   const {
     orderForm: { totalizers },
   } = useOrderForm()
+
   let subTotal = totalizers.length === 0 ? 0 : totalizers[0].value
+
+  subTotal = parseFloat(
+    subTotal.toString().substring(0, subTotal.toString().length - 2)
+  )
+
+  if (isNaN(subTotal)) {
+    subTotal = 0
+  }
 
   const [missingForFreeShipping, setMissingForFreeShipping] = useState(0)
 

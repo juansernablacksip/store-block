@@ -55,9 +55,31 @@ The `free-shipping` is a block responsible for **displaying the missing amount, 
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | ---| 
-| `valueOfFreeShipping` | `Number` | Show value of free shipping | `1` |
-| `infoLabel` | `String` | Show info of free shipping | `Valor actual: ¡Faltan ________ para que su envío sea totalmente gratis!` |
-| `show` | `Boolean` | Show free shipping | `true` |
+| `valueOfFreeShipping` | `Number` | Value of free shipping | `1` |
+| `infoLabel` | `String` | information of free shipping | `Valor actual: {subTotal} ¡Faltan {missingForFreeShipping} para que su envío sea totalmente gratis!` |
+| `show` | `Boolean` | Show parts of component of free shipping | `true` |
+
+
+infoLabel **object**
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | ---| 
+| `labelInitial` | `String` | Text initial | `Valor actual:` |
+| `labelBetween` | `String` | Text between | `¡Faltan` |
+| `labelFinal` | `String` | Text final  | `para que su envío sea totalmente gratis!` |
+
+
+show **object**
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | ---| 
+| `informativeFreeShippingText` | `Boolean` | Show information of infoLabel in general | `true` |
+| `percentageFreeShipping` | `Boolean` | Show progress bar or percentage | `true` |
+| `rangeFreeShipping` | `Boolean` | Show information of progress bar or percentage limits | `true` |
+| `labelInitial` | `Boolean` | Show text initial of infoLabel | `true` |
+| `subTotal` | `Boolean` | Show subtotal for free shipping of infoLabel | `true` |
+| `labelBetween` | `Boolean` | Show text between of infoLabel | `true` |
+| `missingForFreeShipping` | `Boolean` | Show missing for free shipping of infoLabel | `true` |
+| `labelFinal` | `Boolean` | Show text final of infoLabel | `true` |
+
 
 
 ## Customization
@@ -66,9 +88,9 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 
 | CSS Handles |
 | --- |
-| `globalFreeShippingContainer` |
-| `informativeFreeShippingText` |
-| `freeShippingProgressBar` |
-| `rangeFreeShippingContainer` |
-| `initialRangeFreeShippingText` |
-| `endRangeFreeShippingText` |
+| `fs_globalFreeShippingContainer` |
+| `fs_informativeFreeShippingText` |
+| `fs_freeShippingProgressBar` |
+| `fs_rangeFreeShippingContainer` |
+| `fs_initialRangeFreeShippingText` |
+| `fs_endRangeFreeShippingText` |

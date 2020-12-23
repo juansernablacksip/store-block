@@ -21,7 +21,7 @@ The `minimum-purchase-amount` is a block responsible for **displaying the missin
 ```json
 "minimum-purchase-amount": {
   "props": {
-    "valueOfMinimumPurchaseAmount": 9000000,
+    "valueOfMinimumPurchaseAmount": 2000000,
     "infoLabel": {
         "labelInitial": "Valor actual:",
         "labelBetween": "¡Faltan ",
@@ -39,6 +39,15 @@ The `minimum-purchase-amount` is a block responsible for **displaying the missin
       "SuggestedProductImage": true,
       "SuggestedProductInformation": true,
       "SuggestedProductInformationAddToListButton": true
+    },
+    "querySuggestedProduct": {
+      "category": "Electrodomésticos",
+      "collection": "",
+      "specificationFilters": [],
+      "orderBy": "OrderByTopSaleDESC",
+      "from": 0,
+      "to": 2,
+      "hideUnavailableItems": true
     },
     "textCheckoutButton": "Cerrar pedido",
     "textAddToListButton": "LO QUIERO"
@@ -75,6 +84,16 @@ infoLabel **object**
 | `labelBetween` | `String` | Text between | `¡Faltan` |
 | `labelFinal` | `String` | Text final  | `para que pueda cerrar su pedido!` |
 
+querySuggestedProduct **object**
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | ---| 
+| `category` | `String` | **required** Category of suggested product | `` |
+| `collection` | `String` | Number of collection of suggested product | `` |
+| `specificationFilters` | `[]` | Specification filter of suggested product  | `[]` |
+| `orderBy` | `String` | Order of suggested product  | `OrderByTopSaleDESC` |
+| `from` | `Number` | initial number of suggested product   | `0` |
+| `to` | `Number` | end number of suggested product  | `2` |
+| `hideUnavailableItems` | `Boolean` | show unavailable items of suggested product  | `true` |
 
 show **object**
 | Prop name | Type | Description | Default value |

@@ -37,6 +37,7 @@ const MinimumPurchaseAmount: StorefrontFunctionComponent<
   show,
   textCheckoutButton,
   textAddToListButton,
+  querySuggestedProduct,
 }) => {
   const { addItem } = useOrderItems()
   const { utmParams, utmiParams } = useMarketingSessionParams()
@@ -56,13 +57,13 @@ const MinimumPurchaseAmount: StorefrontFunctionComponent<
   const { data } = useQuery(productsQuery, {
     ssr: true,
     variables: {
-      category: 'Electrodomésticos',
-      collection: '',
-      specificationFilters: [],
-      orderBy: 'OrderByTopSaleDESC',
-      from: 0,
-      to: 2,
-      hideUnavailableItems: true,
+      category: querySuggestedProduct.category,
+      collection: querySuggestedProduct.collection,
+      specificationFilters: querySuggestedProduct.specificationFilters,
+      orderBy: querySuggestedProduct.orderBy,
+      from: querySuggestedProduct.from,
+      to: querySuggestedProduct.to,
+      hideUnavailableItems: querySuggestedProduct.hideUnavailableItems,
     },
   })
 

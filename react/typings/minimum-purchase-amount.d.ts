@@ -4,12 +4,23 @@ export interface MinimumPurchaseAmountProps {
   show: ShowProps
   textCheckoutButton: string
   textAddToListButton: string
+  querySuggestedProduct: QueryProps
 }
 
 export interface InfoProps {
   labelInitial?: string
   labelBetween?: string
   labelFinal?: string
+}
+
+export interface QueryProps {
+  category?: string
+  collection?: string = ''
+  specificationFilters?: [] = []
+  orderBy?: string = 'OrderByTopSaleDESC'
+  from?: number = 0
+  to?: number = 2
+  hideUnavailableItems?: boolean = true
 }
 
 export interface ShowProps {

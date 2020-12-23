@@ -253,13 +253,13 @@ MinimumPurchaseAmount.defaultProps = {
 }
 
 MinimumPurchaseAmount.schema = {
-  title: 'editor.minimum-purchase-amount.title',
-  description: 'editor.minimum-purchase-amount.description',
+  title: 'admin/editor.minimum-purchase-amount.title',
+  description: 'admin/editor.minimum-purchase-amount.description',
   type: 'object',
   properties: {
     valueOfMinimumPurchaseAmount: {
       title:
-        'editor.minimum-purchase-amount.valueOfMinimumPurchaseAmount.title',
+        'admin/editor.minimum-purchase-amount.valueOfMinimumPurchaseAmount.title',
       type: 'number',
     },
     infoLabel: {
@@ -267,25 +267,28 @@ MinimumPurchaseAmount.schema = {
       type: 'object',
       properties: {
         labelInitial: {
-          title: 'editor.minimum-purchase-amount.infoLabel.labelInitial.title',
+          title:
+            'admin/editor.minimum-purchase-amount.infoLabel.labelInitial.title',
           type: 'string',
         },
         labelBetween: {
-          title: 'editor.minimum-purchase-amount.infoLabel.labelBetween.title',
+          title:
+            'admin/editor.minimum-purchase-amount.infoLabel.labelBetween.title',
           type: 'string',
         },
         labelFinal: {
-          title: 'editor.minimum-purchase-amount.infoLabel.labelFinal.title',
+          title:
+            'admin/editor.minimum-purchase-amount.infoLabel.labelFinal.title',
           type: 'string',
         },
       },
     },
     textCheckoutButton: {
-      title: 'editor.minimum-purchase-amount.textCheckoutButton.title',
+      title: 'admin/editor.minimum-purchase-amount.textCheckoutButton.title',
       type: 'string',
     },
     textAddToListButton: {
-      title: 'editor.minimum-purchase-amount.textAddToListButton.title',
+      title: 'admin/editor.minimum-purchase-amount.textAddToListButton.title',
       type: 'string',
     },
   },

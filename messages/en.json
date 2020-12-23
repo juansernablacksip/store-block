@@ -4,6 +4,6 @@
   "admin/editor.minimum-purchase-amount.infoLabel.labelInitial.title": "Valor actual:",
   "admin/editor.minimum-purchase-amount.infoLabel.labelBetween.title": "¡Faltan ",
   "admin/editor.minimum-purchase-amount.infoLabel.labelFinal.title": "para que su envío sea totalmente gratis!",
-  "editor.minimum-purchase-amount.textCheckoutButton.title": "Cerrar pedido",
-  "editor.minimum-purchase-amount.textAddToListButton.title": "LO QUIERO"
+  "admin/editor.minimum-purchase-amount.textCheckoutButton.title": "Cerrar pedido",
+  "admin/editor.minimum-purchase-amount.textAddToListButton.title": "LO QUIERO"
 }

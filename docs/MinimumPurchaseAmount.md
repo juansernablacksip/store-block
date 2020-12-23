@@ -1,8 +1,8 @@
 # Free Shipping
 
-The `minimum-purchase-amount` is a block responsible for **displaying the missing amount, to be able to buy in the online store**.
+The `minimum-purchase-amount` is a block responsible for **displaying the missing amount and suggested product, to be able to buy in the online store**.
 
-![image](https://user-images.githubusercontent.com/74076308/102406641-e137e080-3fb8-11eb-8e61-587badd8d9ab.PNG)
+![image](https://user-images.githubusercontent.com/74076308/103029329-91609880-4527-11eb-9efb-10fd2d7f55f9.PNG)
 
 ## Configuration
 
@@ -21,12 +21,12 @@ The `minimum-purchase-amount` is a block responsible for **displaying the missin
 ```json
 "minimum-purchase-amount": {
   "props": {
-    "valueOfMinimumPurchaseAmount": 1,
+    "valueOfMinimumPurchaseAmount": 9000000,
     "infoLabel": {
-      "labelInitial": "Test init:",
-      "labelBetween": "¡Test Middle ",
-      "labelFinal": "Test end!"
-      },
+        "labelInitial": "Valor actual:",
+        "labelBetween": "¡Faltan ",
+        "labelFinal": "para que pueda cerrar su pedido!"
+    },
     "show": {
       "informativeMinimumPurchaseAmountText": true,
       "labelInitial": true,
@@ -35,9 +35,13 @@ The `minimum-purchase-amount` is a block responsible for **displaying the missin
       "missingForMinimumPurchaseAmount": true,
       "labelFinal": true,
       "checkoutButton": true,
-      "children": true
+      "SuggestedProduct": true,
+      "SuggestedProductImage": true,
+      "SuggestedProductInformation": true,
+      "SuggestedProductInformationAddToListButton": true
     },
-    "textCheckoutButton": "Test text"
+    "textCheckoutButton": "Cerrar pedido",
+    "textAddToListButton": "LO QUIERO"
   }
 },
 {
@@ -59,7 +63,8 @@ The `minimum-purchase-amount` is a block responsible for **displaying the missin
 | `valueOfMinimumPurchaseAmount` | `Number` | Value of minimum purchase amount | `1` |
 | `infoLabel` | `String` | information of minimum purchase amount | `Valor actual: {subTotal} ¡Faltan {missingForFreeShipping} para que pueda cerrar su pedido!` |
 | `show` | `Boolean` | Show parts of component of minimum purchase amount | `true` |
-| `textCheckoutButton` | `String` | Text of checkout button | `Cerrar pedido` |
+| `textCheckoutButton` | `String` | Text of checkout button of minicart | `Cerrar pedido` |
+| `textAddToListButton` | `String` | Text of add to list button of minicart | `Cerrar pedido` |
 
 
 
@@ -80,8 +85,11 @@ show **object**
 | `labelBetween` | `Boolean` | Show text between of infoLabel | `true` |
 | `missingForMinimumPurchaseAmount` | `Boolean` | Show missing for free shipping of infoLabel | `true` |
 | `labelFinal` | `Boolean` | Show text final of infoLabel | `true` |
-| `checkoutButton` | `Boolean` | Show text final of infoLabel | `true` |
-| `children` | `Boolean` | Show text final of infoLabel | `true` |
+| `checkoutButton` | `Boolean` | Show checkout button | `true` |
+| `SuggestedProduct` | `Boolean` | Show suggested product in the minicart | `true` |
+| `SuggestedProductImage` | `Boolean` | Show suggested product image in the minicart | `true` |
+| `SuggestedProductInformation` | `Boolean` | Show suggested product information (name, price and add to list button) in the minicart | `true` |
+| `SuggestedProductInformationAddToListButton` | `Boolean` | Show suggested product add to list button in the minicart | `true` |
 
 
 ## Customization
@@ -90,7 +98,16 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 
 | CSS Handles |
 | --- |
-| `mpa_globalMinimumPurchaseAmountContainer` |
-| `mpa_infoLabelMinimumPurchaseAmountContainer` |
-| `mpa_informativeMinimumPurchaseAmountText` |
-| `mpa_MinimumPurchaseAmountButton` |
+| `mpa_MinimumPurchaseAmountSuggestedProductInformationAddToListButton` |
+| `mpa_MinimumPurchaseAmountSuggestedProductInformationProductPrice` |
+| `mpa_MinimumPurchaseAmountSuggestedProductInformationProductName` |
+| `mpa_MinimumPurchaseAmountSuggestedProductInformationLayout` |
+| `mpa_MinimumPurchaseAmountSuggestedProductImage` |
+| `mpa_MinimumPurchaseAmountSuggestedProductImageLayout` |
+| `mpa_MinimumPurchaseAmountSuggestedProductCardGlobalLayout` |
+| `mpa_MinimumPurchaseAmountSuggestedProductCard` |
+| `mpa_MinimumPurchaseAmountSuggestedProductCardContainer` |
+| `mpa_MinimumPurchaseAmountCheckoutButton` |
+| `mpa_MinimumPurchaseAmountInformativeText` |
+| `mpa_MinimumPurchaseAmountInformativeTextContainer` |
+| `mpa_MinimumPurchaseAmountGlobalContainer` |

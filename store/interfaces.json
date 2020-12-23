@@ -1,7 +1,5 @@
 {
-  "countdown": {
-    "component": "MinimumPurchaseAmount",
-    "composition": "children",
-    "allowed": "*"
+  "minimum-purchase-amount": {
+    "component": "MinimumPurchaseAmount"
   }
 }

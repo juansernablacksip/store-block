@@ -3,6 +3,7 @@ export interface MinimumPurchaseAmountProps {
   infoLabel: InfoProps
   show: ShowProps
   textCheckoutButton: string
+  textAddToListButton: string
 }
 
 export interface InfoProps {
@@ -19,5 +20,8 @@ export interface ShowProps {
   missingForMinimumPurchaseAmount?: boolean
   labelFinal?: boolean
   checkoutButton?: boolean
-  children?: boolean
+  SuggestedProduct?: boolean
+  SuggestedProductImage?: boolean
+  SuggestedProductInformation?: boolean
+  SuggestedProductInformationAddToListButton?: boolean
 }

@@ -1,9 +1,9 @@
 {
-  "vendor": "vtex",
-  "name": "countdown",
+  "vendor": "blacksipqa",
+  "name": "custom-components",
   "version": "0.0.1",
-  "title": "Countdown",
-  "description": "Countdown component",
+  "title": "BlackSip store components custom",
+  "description": "The BlackSip store components for that render apps can use",
   "defaultLocale": "es-CO",
   "builders": {
     "react": "3.x",
@@ -24,6 +24,9 @@
     "vtex.order-manager": "0.x",
     "vtex.order-shipping": "0.x",
     "vtex.product-context": "0.x",
+    "vtex.product-summary-context": "0.x",
+    "vtex.order-items": "0.x",
+    "vtex.product-list-context": "0.x",
     "vtex.react-portal": "0.x",
     "vtex.responsive-values": "0.x",
     "vtex.rich-text": "0.x",

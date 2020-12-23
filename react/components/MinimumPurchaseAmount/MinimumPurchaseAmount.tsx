@@ -1,19 +1,32 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useOrderForm } from 'vtex.order-manager/OrderForm'
-import { Button } from 'vtex.styleguide'
+import { useOrderItems } from 'vtex.order-items/OrderItems'
+import { Button, Card } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedCurrency } from 'vtex.format-currency'
-import { MinimumPurchaseAmountProps } from '../../typings/minimum-purchase-amount'
 import { useCheckoutURL } from 'vtex.checkout-resources/Utils'
+import { useQuery } from 'react-apollo'
+import productsQuery from '../../graphql/productsQuery.graphql'
+import useMarketingSessionParams from '../../modules/useMarketingSessionParams'
+import { MinimumPurchaseAmountProps } from '../../typings/minimum-purchase-amount'
 
 /**
  * Modifiers of each of the component classes allow you to style each of the blocks
  */
 const CSS_HANDLES = [
-  'mpa_globalMinimumPurchaseAmountContainer',
-  'mpa_infoLabelMinimumPurchaseAmountContainer',
-  'mpa_informativeMinimumPurchaseAmountText',
-  'mpa_MinimumPurchaseAmountButton',
+  'mpa_MinimumPurchaseAmountSuggestedProductInformationAddToListButton',
+  'mpa_MinimumPurchaseAmountSuggestedProductInformationProductPrice',
+  'mpa_MinimumPurchaseAmountSuggestedProductInformationProductName',
+  'mpa_MinimumPurchaseAmountSuggestedProductInformationLayout',
+  'mpa_MinimumPurchaseAmountSuggestedProductImage',
+  'mpa_MinimumPurchaseAmountSuggestedProductImageLayout',
+  'mpa_MinimumPurchaseAmountSuggestedProductCardGlobalLayout',
+  'mpa_MinimumPurchaseAmountSuggestedProductCard',
+  'mpa_MinimumPurchaseAmountSuggestedProductCardContainer',
+  'mpa_MinimumPurchaseAmountCheckoutButton',
+  'mpa_MinimumPurchaseAmountInformativeText',
+  'mpa_MinimumPurchaseAmountInformativeTextContainer',
+  'mpa_MinimumPurchaseAmountGlobalContainer',
 ] as const
 
 const MinimumPurchaseAmount: StorefrontFunctionComponent<
@@ -23,17 +36,58 @@ const MinimumPurchaseAmount: StorefrontFunctionComponent<
   infoLabel,
   show,
   textCheckoutButton,
-  children,
+  textAddToListButton,
 }) => {
+  const { addItem } = useOrderItems()
+  const { utmParams, utmiParams } = useMarketingSessionParams()
   const { url: checkoutUrl } = useCheckoutURL()
-
   // Get subTotal of my cart that is equal to the sum of the prices of the items in the cart
   const {
     orderForm: { totalizers },
   } = useOrderForm()
 
-  let subTotal = totalizers.length === 0 ? 0 : totalizers[0].value
+  const [missingForFreeShipping, setMissingForFreeShipping] = useState(0)
+  const [
+    hasTheMinimumPurchaseAmount,
+    setHasTheMinimumPurchaseAmount,
+  ] = useState(false)
 
+  // Get product
+  const { data } = useQuery(productsQuery, {
+    ssr: true,
+    variables: {
+      category: 'Electrodomésticos',
+      collection: '',
+      specificationFilters: [],
+      orderBy: 'OrderByTopSaleDESC',
+      from: 0,
+      to: 2,
+      hideUnavailableItems: true,
+    },
+  })
+
+  // Build item object
+  let CartItem = {}
+  if (data) {
+    CartItem = {
+      detailUrl: data.products[0].link,
+      id: data.products[0].productId,
+      imageUrls: data.products[0].items[0].images[0],
+      listPrice: data.products[0].priceRange.listPrice.lowPrice,
+      measurementUnit: data.products[0].items[0].measurementUnit,
+      name: data.products[0].productName,
+      price: data.products[0].priceRange.listPrice.lowPrice,
+      productRefId: data.products[0].items[0].referenceId[0].value,
+      productId: data.products[0].productId,
+      quantity: 1,
+      seller: data.products[0].items[0].sellers[0].sellerId,
+      sellingPrice: data.products[0].priceRange.sellingPrice.lowPrice,
+      skuSpecifications: data.products[0].skuSpecifications,
+      unitMultiplier: data.products[0].items[0].unitMultiplier,
+    }
+  }
+
+  let subTotal = totalizers.length === 0 ? 0 : totalizers[0].value
   subTotal = parseFloat(
     subTotal.toString().substring(0, subTotal.toString().length - 2)
   )
@@ -42,36 +96,54 @@ const MinimumPurchaseAmount: StorefrontFunctionComponent<
     subTotal = 0
   }
 
-  const [missingForFreeShipping, setMissingForFreeShipping] = useState(0)
-
   useEffect(() => {
     setMissingForFreeShipping(
       valueOfMinimumPurchaseAmount - subTotal <= 0
         ? 0
         : valueOfMinimumPurchaseAmount - subTotal
     )
+    setHasTheMinimumPurchaseAmount(
+      (subTotal * 100) / valueOfMinimumPurchaseAmount < 100
+    )
   }, [subTotal])
+
+  const addItemMinicart = async () => {
+    await addItem([CartItem], {
+      ...utmParams,
+      ...utmiParams,
+    })
+    show.SuggestedProduct = false
+  }
 
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
-    <div className={`pb0 ${handles.mpa_globalMinimumPurchaseAmountContainer}`}>
+    <div className={`pb0 ${handles.mpa_MinimumPurchaseAmountGlobalContainer}`}>
       <div
-        className={`w-90 pa3 ${handles.mpa_infoLabelMinimumPurchaseAmountContainer}`}
+        className={`w-90 pa3 ${handles.mpa_MinimumPurchaseAmountInformativeTextContainer}`}
       >
         {show.informativeMinimumPurchaseAmountText && (
           <p
-            className={`t-body mw9 mw-100 ${handles.mpa_informativeMinimumPurchaseAmountText}`}
+            className={`t-body mw9 mw-100 ${handles.mpa_MinimumPurchaseAmountInformativeText}`}
           >
-            {show.labelInitial && infoLabel.labelInitial}
-            {show.subTotal && <FormattedCurrency value={subTotal} />}
-            &nbsp;
-            {show.labelBetween && infoLabel.labelBetween}
-            {show.missingForMinimumPurchaseAmount && (
-              <FormattedCurrency value={missingForFreeShipping} />
+            {show.labelInitial &&
+              hasTheMinimumPurchaseAmount &&
+              infoLabel.labelInitial}
+            {show.subTotal && hasTheMinimumPurchaseAmount && (
+              <FormattedCurrency value={subTotal} />
             )}
             &nbsp;
-            {show.labelFinal && infoLabel.labelFinal}
+            {show.labelBetween &&
+              hasTheMinimumPurchaseAmount &&
+              infoLabel.labelBetween}
+            {show.missingForMinimumPurchaseAmount &&
+              hasTheMinimumPurchaseAmount && (
+                <FormattedCurrency value={missingForFreeShipping} />
+              )}
+            &nbsp;
+            {show.labelFinal &&
+              hasTheMinimumPurchaseAmount &&
+              infoLabel.labelFinal}
             &nbsp;
           </p>
         )}
@@ -82,15 +154,75 @@ const MinimumPurchaseAmount: StorefrontFunctionComponent<
             variation="primary"
             href={checkoutUrl}
             block
-            className={`bw1 ba fw5 v-mid relative pa0 lh-solid br2 min-h-regular t-action bg-action-primary b--action-primary c-on-action-primary hover-bg-action-primary hover-b--action-primary hover-c-on-action-primary pointer w-100  ${handles.mpa_MinimumPurchaseAmountButton}`}
+            className={`bw1 ba fw5 v-mid relative pa0 lh-solid br2 min-h-regular t-action bg-action-primary b--action-primary c-on-action-primary hover-bg-action-primary hover-b--action-primary hover-c-on-action-primary pointer w-100  ${handles.mpa_MinimumPurchaseAmountCheckoutButton}`}
           >
             {textCheckoutButton}
           </Button>
         )}
-      {show.children &&
-        (subTotal * 100) / valueOfMinimumPurchaseAmount < 100 && (
-          <Fragment>{children}</Fragment>
-        )}
+      {show.SuggestedProduct && hasTheMinimumPurchaseAmount && (
+        <div
+          className={`pa0 --washed-blue: #fafafa; b--white-80 ${handles.mpa_MinimumPurchaseAmountSuggestedProductCardContainer}`}
+        >
+          <Card
+            noPadding
+            className={`${handles.mpa_MinimumPurchaseAmountSuggestedProductCard}`}
+          >
+            <div
+              className={`flex ${handles.mpa_MinimumPurchaseAmountSuggestedProductCardGlobalLayout}`}
+            >
+              {show.SuggestedProductImage && hasTheMinimumPurchaseAmount && (
+                <div
+                  className={`w-30 h-40 ma0 ${handles.mpa_MinimumPurchaseAmountSuggestedProductImageLayout}`}
+                >
+                  <img
+                    src={
+                      data ? data.products[0].items[0].images[0].imageUrl : ''
+                    }
+                    alt="alt parametro"
+                    className={`${handles.mpa_MinimumPurchaseAmountSuggestedProductImage}`}
+                  ></img>
+                </div>
+              )}
+              {show.SuggestedProductInformation && hasTheMinimumPurchaseAmount && (
+                <div
+                  className={`w-50 ma2 ${handles.mpa_MinimumPurchaseAmountSuggestedProductInformationLayout}`}
+                >
+                  <h2
+                    className={`f6 ${handles.mpa_MinimumPurchaseAmountSuggestedProductInformationProductName}`}
+                  >
+                    {data ? data.products[0].productName : ''}
+                  </h2>
+                  <p
+                    className={`f6 ma0 ${handles.mpa_MinimumPurchaseAmountSuggestedProductInformationProductPrice}`}
+                  >
+                    {' '}
+                    <FormattedCurrency
+                      value={
+                        data
+                          ? data.products[0].priceRange.listPrice.lowPrice
+                          : ''
+                      }
+                    />
+                  </p>
+                  <br></br>
+                  {show.SuggestedProductInformationAddToListButton &&
+                    hasTheMinimumPurchaseAmount && (
+                      <Button
+                        variation="primary"
+                        size="small"
+                        tabIndex={-1}
+                        className={`${handles.mpa_MinimumPurchaseAmountSuggestedProductInformationAddToListButton}`}
+                        onClick={addItemMinicart}
+                      >
+                        {textAddToListButton}
+                      </Button>
+                    )}
+                </div>
+              )}
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   )
 }
@@ -110,18 +242,23 @@ MinimumPurchaseAmount.defaultProps = {
     missingForMinimumPurchaseAmount: true,
     labelFinal: true,
     checkoutButton: true,
-    children: true,
+    SuggestedProduct: true,
+    SuggestedProductImage: true,
+    SuggestedProductInformation: true,
+    SuggestedProductInformationAddToListButton: true,
   },
   textCheckoutButton: 'Cerrar pedido',
+  textAddToListButton: 'LO QUIERO',
 }
 
 MinimumPurchaseAmount.schema = {
-  title: 'editor.countdown.title',
-  description: 'editor.countdown.description',
+  title: 'editor.minimum-purchase-amount.title',
+  description: 'editor.minimum-purchase-amount.description',
   type: 'object',
   properties: {
     valueOfMinimumPurchaseAmount: {
-      title: 'editor.countdown.valueOfMinimumPurchaseAmount.title',
+      title:
+        'editor.minimum-purchase-amount.valueOfMinimumPurchaseAmount.title',
       type: 'number',
     },
     infoLabel: {
@@ -129,21 +266,25 @@ MinimumPurchaseAmount.schema = {
       type: 'object',
       properties: {
         labelInitial: {
-          title: 'editor.countdown.infoLabel.labelInitial.title',
+          title: 'editor.minimum-purchase-amount.infoLabel.labelInitial.title',
           type: 'string',
         },
         labelBetween: {
-          title: 'editor.countdown.infoLabel.labelBetween.title',
+          title: 'editor.minimum-purchase-amount.infoLabel.labelBetween.title',
           type: 'string',
         },
         labelFinal: {
-          title: 'editor.countdown.infoLabel.labelFinal.title',
+          title: 'editor.minimum-purchase-amount.infoLabel.labelFinal.title',
           type: 'string',
         },
       },
     },
     textCheckoutButton: {
-      title: 'editor.countdown.textCheckoutButton.title',
+      title: 'editor.minimum-purchase-amount.textCheckoutButton.title',
+      type: 'string',
+    },
+    textAddToListButton: {
+      title: 'editor.minimum-purchase-amount.textAddToListButton.title',
       type: 'string',
     },
   },

@@ -133,12 +133,12 @@ FreeShipping.defaultProps = {
 }
 
 FreeShipping.schema = {
-  title: 'editor.free-shipping.title',
-  description: 'editor.free-shipping.description',
+  title: 'admin/editor.free-shipping.title',
+  description: 'admin/editor.free-shipping.description',
   type: 'object',
   properties: {
     valueOfFreeShipping: {
-      title: 'editor.free-shipping.valueOfFreeShipping.title',
+      title: 'admin/editor.free-shipping.valueOfFreeShipping.title',
       type: 'number',
     },
     infoLabel: {
@@ -146,20 +146,20 @@ FreeShipping.schema = {
       type: 'object',
       properties: {
         labelInitial: {
-          title: 'editor.free-shipping.infoLabel.labelInitial.title',
+          title: 'admin/editor.free-shipping.infoLabel.labelInitial.title',
           type: 'string',
         },
         labelBetween: {
-          title: 'editor.free-shipping.infoLabel.labelBetween.title',
+          title: 'admin/editor.free-shipping.infoLabel.labelBetween.title',
           type: 'string',
         },
         labelFinal: {
-          title: 'editor.free-shipping.infoLabel.labelFinal.title',
+          title: 'admin/editor.free-shipping.infoLabel.labelFinal.title',
           type: 'string',
         },
         labelFreeShippingComplete: {
           title:
-            'editor.free-shipping.infoLabel.labelFreeShippingComplete.title',
+            'admin/editor.free-shipping.infoLabel.labelFreeShippingComplete.title',
           type: 'string',
         },
       },

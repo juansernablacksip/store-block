@@ -58,8 +58,12 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({
         <p
           className={`t-body mw9 mw-100 ${handles.fs_informativeFreeShippingText}`}
         >
-          {show.labelInitial && infoLabel.labelInitial}
-          {show.subTotal && <FormattedCurrency value={subTotal} />}
+          {show.labelInitial &&
+            percentageForFreeShipping < 100 &&
+            infoLabel.labelInitial}
+          {show.subTotal && percentageForFreeShipping < 100 && (
+            <FormattedCurrency value={subTotal} />
+          )}
           &nbsp;
           {show.labelBetween &&
             percentageForFreeShipping < 100 &&
@@ -71,6 +75,10 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({
           {show.labelFinal &&
             percentageForFreeShipping < 100 &&
             infoLabel.labelFinal}
+          &nbsp;
+          {show.labelFreeShippingComplete &&
+            percentageForFreeShipping === 100 &&
+            infoLabel.labelFreeShippingComplete}
           &nbsp;
         </p>
       )}
@@ -109,6 +117,7 @@ FreeShipping.defaultProps = {
     labelInitial: 'Valor actual:',
     labelBetween: '¡Faltan ',
     labelFinal: 'para que su envío sea totalmente gratis!',
+    labelFreeShippingComplete: '¡Su envio es totalmente gratis!',
   },
   show: {
     informativeFreeShippingText: true,
@@ -119,16 +128,17 @@ FreeShipping.defaultProps = {
     labelBetween: true,
     missingForFreeShipping: true,
     labelFinal: true,
+    labelFreeShippingComplete: true,
   },
 }
 
 FreeShipping.schema = {
-  title: 'editor.countdown.title',
-  description: 'editor.countdown.description',
+  title: 'editor.free-shipping.title',
+  description: 'editor.free-shipping.description',
   type: 'object',
   properties: {
     valueOfFreeShipping: {
-      title: 'editor.countdown.valueOfFreeShipping.title',
+      title: 'editor.free-shipping.valueOfFreeShipping.title',
       type: 'number',
     },
     infoLabel: {
@@ -136,15 +146,20 @@ FreeShipping.schema = {
       type: 'object',
       properties: {
         labelInitial: {
-          title: 'editor.countdown.infoLabel.labelInitial.title',
+          title: 'editor.free-shipping.infoLabel.labelInitial.title',
           type: 'string',
         },
         labelBetween: {
-          title: 'editor.countdown.infoLabel.labelBetween.title',
+          title: 'editor.free-shipping.infoLabel.labelBetween.title',
           type: 'string',
         },
         labelFinal: {
-          title: 'editor.countdown.infoLabel.labelFinal.title',
+          title: 'editor.free-shipping.infoLabel.labelFinal.title',
+          type: 'string',
+        },
+        labelFreeShippingComplete: {
+          title:
+            'editor.free-shipping.infoLabel.labelFreeShippingComplete.title',
           type: 'string',
         },
       },

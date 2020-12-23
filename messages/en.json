@@ -1,8 +1,9 @@
 {
-  "editor.countdown.title": "Free Shipping Component",
-  "editor.countdown.description": "Free Shipping Component",
-  "editor.countdown.valueOfFreeShipping.title": "999",
-  "editor.countdown.infoLabel.labelInitial.title": "Valor actual:",
-  "editor.countdown.infoLabel.labelBetween.title": "¡Faltan ",
-  "editor.countdown.infoLabel.labelFinal.title": "para que su envío sea totalmente gratis!"
+  "editor.free-shipping.title": "Free Shipping Component",
+  "editor.free-shipping.description": "Free Shipping Component",
+  "editor.free-shipping.valueOfFreeShipping.title": "999",
+  "editor.free-shipping.infoLabel.labelInitial.title": "Valor actual:",
+  "editor.free-shipping.infoLabel.labelBetween.title": "¡Faltan ",
+  "editor.free-shipping.infoLabel.labelFinal.title": "para que su envío sea totalmente gratis!",
+  "editor.free-shipping.infoLabel.labelFreeShippingComplete.title": "¡Su envio es totalmente gratis!"
 }

@@ -25,7 +25,8 @@ The `free-shipping` is a block responsible for **displaying the missing amount, 
     "infoLabel": {
       "labelInitial": "Test init:",
       "labelBetween": "¡Test Middle ",
-      "labelFinal": "Test end!"
+      "labelFinal": "Test end!",
+      "labelFreeShippingComplete": "Test complete"
       },
     "show": {
       "informativeFreeShippingText": true,
@@ -35,7 +36,8 @@ The `free-shipping` is a block responsible for **displaying the missing amount, 
       "subTotal": true,
       "labelBetween": true,
       "missingForFreeShipping": true,
-      "labelFinal": true
+      "labelFinal": true,
+      "labelFreeShippingComplete": true
     }
   }
 },
@@ -66,6 +68,7 @@ infoLabel **object**
 | `labelInitial` | `String` | Text initial | `Valor actual:` |
 | `labelBetween` | `String` | Text between | `¡Faltan` |
 | `labelFinal` | `String` | Text final  | `para que su envío sea totalmente gratis!` |
+| `labelFreeShippingComplete` | `String` | Text complete free shipping  | `¡Su envio es totalmente gratis!` |
 
 
 show **object**
@@ -79,6 +82,7 @@ show **object**
 | `labelBetween` | `Boolean` | Show text between of infoLabel | `true` |
 | `missingForFreeShipping` | `Boolean` | Show missing for free shipping of infoLabel | `true` |
 | `labelFinal` | `Boolean` | Show text final of infoLabel | `true` |
+| `labelFreeShippingComplete` | `Boolean` | Show text when complete amount of free shipping | `true` |
 
 
 

@@ -29,6 +29,7 @@ The `free-shipping` is a block responsible for **displaying the missing amount, 
       "labelFreeShippingComplete": "Test complete"
       },
     "show": {
+      "freeShippingComponent": true,
       "informativeFreeShippingText": true,
       "percentageFreeShipping":true,
       "rangeFreeShipping": true,
@@ -74,6 +75,7 @@ infoLabel **object**
 show **object**
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | ---| 
+| `freeShippingComponent` | `Boolean` | Show custom component called free-shipping | `true` |
 | `informativeFreeShippingText` | `Boolean` | Show information of infoLabel in general | `true` |
 | `percentageFreeShipping` | `Boolean` | Show progress bar or percentage | `true` |
 | `rangeFreeShipping` | `Boolean` | Show information of progress bar or percentage limits | `true` |

@@ -12,6 +12,7 @@ export interface InfoProps {
 }
 
 export interface ShowProps {
+  freeShippingComponent?: boolean
   informativeFreeShippingText?: boolean
   percentageFreeShipping?: boolean
   rangeFreeShipping?: boolean

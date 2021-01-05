@@ -22,22 +22,17 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({
   infoLabel,
   show,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
+
   // Get subTotal of my cart that is equal to the sum of the prices of the items in the cart
   const {
     orderForm: { totalizers },
   } = useOrderForm()
-  let subTotal = totalizers.length === 0 ? 0 : totalizers[0].value
-
-  subTotal = parseFloat(
-    subTotal.toString().substring(0, subTotal.toString().length - 2)
-  )
-
-  if (isNaN(subTotal)) {
-    subTotal = 0
-  }
 
   const [missingForFreeShipping, setMissingForFreeShipping] = useState(0)
   const [percentageForFreeShipping, setPercentageForFreeShipping] = useState(1)
+
+  let subTotal = totalizers.length === 0 ? 0 : totalizers[0].value / 100
 
   useEffect(() => {
     setMissingForFreeShipping(
@@ -50,61 +45,64 @@ const FreeShipping: StorefrontFunctionComponent<FreeShippingProps> = ({
     )
   }, [subTotal])
 
-  const handles = useCssHandles(CSS_HANDLES)
-
   return (
-    <div className={`w-90 pa3 ${handles.fs_globalFreeShippingContainer}`}>
-      {show.informativeFreeShippingText && (
-        <p
-          className={`t-body mw9 mw-100 ${handles.fs_informativeFreeShippingText}`}
-        >
-          {show.labelInitial &&
-            percentageForFreeShipping < 100 &&
-            infoLabel.labelInitial}
-          {show.subTotal && percentageForFreeShipping < 100 && (
-            <FormattedCurrency value={subTotal} />
+    <div>
+      {show.freeShippingComponent && (
+        <div className={`w-90 pa3 ${handles.fs_globalFreeShippingContainer}`}>
+          {show.informativeFreeShippingText && (
+            <p
+              className={`t-body mw9 mw-100 ${handles.fs_informativeFreeShippingText}`}
+            >
+              {show.labelInitial &&
+                percentageForFreeShipping < 100 &&
+                infoLabel.labelInitial}
+              {show.subTotal && percentageForFreeShipping < 100 && (
+                <FormattedCurrency value={subTotal} />
+              )}
+              &nbsp;
+              {show.labelBetween &&
+                percentageForFreeShipping < 100 &&
+                infoLabel.labelBetween}
+              {show.missingForFreeShipping &&
+                percentageForFreeShipping < 100 && (
+                  <FormattedCurrency value={missingForFreeShipping} />
+                )}
+              &nbsp;
+              {show.labelFinal &&
+                percentageForFreeShipping < 100 &&
+                infoLabel.labelFinal}
+              &nbsp;
+              {show.labelFreeShippingComplete &&
+                percentageForFreeShipping === 100 &&
+                infoLabel.labelFreeShippingComplete}
+              &nbsp;
+            </p>
           )}
-          &nbsp;
-          {show.labelBetween &&
-            percentageForFreeShipping < 100 &&
-            infoLabel.labelBetween}
-          {show.missingForFreeShipping && percentageForFreeShipping < 100 && (
-            <FormattedCurrency value={missingForFreeShipping} />
+          {show.rangeFreeShipping && (
+            <div
+              className={`flex flex-wrap items-center justify-between pa2 ${handles.fs_rangeFreeShippingContainer}`}
+            >
+              {show.percentageFreeShipping && (
+                <Progress
+                  type="line"
+                  percent={percentageForFreeShipping}
+                  className={`mw-100 ${handles.fs_freeShippingProgressBar}`}
+                />
+              )}
+              <p
+                className={`t-body mw9 self-start ${handles.fs_initialRangeFreeShippingText}`}
+              >
+                {' '}
+                <FormattedCurrency value={0} />{' '}
+              </p>
+              <p
+                className={`t-body mw9 self-end ${handles.fs_endRangeFreeShippingText}`}
+              >
+                {' '}
+                <FormattedCurrency value={valueOfFreeShipping} />{' '}
+              </p>
+            </div>
           )}
-          &nbsp;
-          {show.labelFinal &&
-            percentageForFreeShipping < 100 &&
-            infoLabel.labelFinal}
-          &nbsp;
-          {show.labelFreeShippingComplete &&
-            percentageForFreeShipping === 100 &&
-            infoLabel.labelFreeShippingComplete}
-          &nbsp;
-        </p>
-      )}
-      {show.rangeFreeShipping && (
-        <div
-          className={`flex flex-wrap items-center justify-between pa2 ${handles.fs_rangeFreeShippingContainer}`}
-        >
-          {show.percentageFreeShipping && (
-            <Progress
-              type="line"
-              percent={percentageForFreeShipping}
-              className={`mw-100 ${handles.fs_freeShippingProgressBar}`}
-            />
-          )}
-          <p
-            className={`t-body mw9 self-start ${handles.fs_initialRangeFreeShippingText}`}
-          >
-            {' '}
-            <FormattedCurrency value={0} />{' '}
-          </p>
-          <p
-            className={`t-body mw9 self-end ${handles.fs_endRangeFreeShippingText}`}
-          >
-            {' '}
-            <FormattedCurrency value={valueOfFreeShipping} />{' '}
-          </p>
         </div>
       )}
     </div>
@@ -120,6 +118,7 @@ FreeShipping.defaultProps = {
     labelFreeShippingComplete: '¡Su envio es totalmente gratis!',
   },
   show: {
+    freeShippingComponent: true,
     informativeFreeShippingText: true,
     percentageFreeShipping: true,
     rangeFreeShipping: true,

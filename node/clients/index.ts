@@ -1,3 +1,9 @@
-import { IOClients } from "@vtex/api";
+import { IOClients } from '@vtex/api';
 
-export class Clients extends IOClients {}
+import { Logistics } from './logistics';
+
+export class Clients extends IOClients {
+    public get logistics() {
+        return this.getOrSet('logistics', Logistics);
+    }
+}

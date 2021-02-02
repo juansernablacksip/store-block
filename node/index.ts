@@ -1,37 +1,55 @@
-import { ClientsConfig, LRUCache, Service, ServiceContext } from '@vtex/api'
+import type { ClientsConfig, ServiceContext, RecorderState } from '@vtex/api';
+import { LRUCache, method, Service } from '@vtex/api';
 
-import { Clients } from './clients'
+import { Clients } from './clients';
+import { getSellerById } from './handlers/catalog';
+import logistics from './handlers/Logistics';
 
-const TIMEOUT_MS = 5000
+import { auth } from './middlewares/auth';
 
-const memoryCache = new LRUCache<string, any>({max: 5000})
-metrics.trackCache('status', memoryCache)
+const { getInventoryBySKU, getPickupPointById, getListPickupPoint, getWarehouseById } = logistics
+
+const TIMEOUT_MS = 800;
+
+const memoryCache = new LRUCache<string, any>({ max: 5000 });
+
+metrics.trackCache('status', memoryCache);
 
 const clients: ClientsConfig<Clients> = {
-  implementation: Clients,
-  options: {
-    default: {
-      retries: 2,
-      timeout: TIMEOUT_MS,
+    implementation: Clients,
+    options: {
+        default: {
+            retries: 2,
+            timeout: TIMEOUT_MS,
+        },
+        status: {
+            memoryCache,
+        },
     },
-    status: {
-      memoryCache,
-    },
-  },
-}
+};
 
 declare global {
-  type Context = ServiceContext<Clients>
+    type Context = ServiceContext<Clients, State>;
+    interface State extends RecorderState {}
 }
 
-// Export a service that defines route handlers and client options.
-export default new Service<Clients, {}>({
-  clients,
-  graphql: {
-    resolvers: {
-      Query: {
-
-      },
+export default new Service({
+    clients,
+    routes: {
+        seller: method({
+            GET: [auth, getSellerById],
+        }),
+        inventory: method({
+            GET: [auth, getInventoryBySKU],
+        }),
+        pickupPoint: method({
+            GET: [auth, getPickupPointById],
+        }),
+        pickupPoints: method({
+            GET: [auth, getListPickupPoint],
+        }),
+        warehouse: method({
+            GET: [auth, getWarehouseById],
+        }),
     },
-  },
-})
+});

@@ -1,5 +1,5 @@
 {
-  "minimum-purchase-amount": {
-    "component": "MinimumPurchaseAmount"
+  "pickup-availability": {
+    "component": "PickupAvailability"
   }
 }
